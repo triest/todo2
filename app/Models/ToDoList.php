@@ -9,6 +9,8 @@ class ToDoList extends Model
 {
     use HasFactory;
 
+    protected $fillable=['name'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -16,5 +18,9 @@ class ToDoList extends Model
 
     public function tag(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function item(){
+        return $this->hasMany(ToDoItem::class,'list_id','id');
     }
 }

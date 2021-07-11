@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AnketController;
+use App\Http\Controllers\Api\ToDoItemController;
+use App\Http\Controllers\Api\ToDoListController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ContactController;
@@ -25,37 +27,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('api')->group(function () {
-    Route::post('register', [RegisterController::class ,'register']);
-    Route::post('login', [LoginController::class ,'login']);
+
 });
+Route::apiResource('to-do-list', ToDoListController::class);
+Route::apiResource('to-do-list-item', ToDoItemController::class);
 
 Route::middleware('auth')->group(
         function () {
-            Route::resource('products', ProductController::class);
-            Route::resource('settings', SettingController::class);
-            Route::apiResource('profile', ProfileController::class);
-            Route::apiResource('search', SearchController::class);
-            Route::post('/profile/main-photo/upload', [ProfileController::class, 'uploadMainPhoto']);
-            Route::get('/anket/{unique_id}',[AnketController::class,'show']);
-            Route::apiResource('user',UserController::class);
-            Route::prefix('contact')->middleware('auth')->name('contact.')->group(
-                    function () {
-                        Route::get('/', [ContactController::class,'index'])->name('main')->middleware('auth');
-                        Route::get('/contacts', [ContactController::class,'get']);
-                        Route::get('/conversation/{id}', [ContactController::class,'getMessagesFor']);
-                        Route::post('/conversation/send', [ContactController::class,'send']);
-                        Route::get('/count-unreaded', [ContactController::class,'countUnreaded']);
-                    }
-            );
+            Route::apiResource('to-do-list', ToDoListController::class);
+            Route::apiResource('to-do-list-item', ToDoItemController::class);
         }
 );
 
 
 
-Route::get('/test',function (){
-    $user=User::select(['*'])->with('relation')->first();
-        dump($user);
-
-    $relation=\App\Models\Relations::select(['*'])->with('user')->first();
-    dump($relation);
-});

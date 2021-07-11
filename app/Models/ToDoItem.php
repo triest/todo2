@@ -9,6 +9,8 @@ class ToDoItem extends Model
 {
     use HasFactory;
 
+    protected $fillable=['name','list_id'];
+
     public function user()
     {
         return $this->belongsTo(ToDoList::class);

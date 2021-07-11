@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AnketSearchResourse extends JsonResource
+class ToDoListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,6 @@ class AnketSearchResourse extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return parent::toArray($this);
     }
 }

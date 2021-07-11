@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class UserRegistrationRequest extends FormRequest
+class CreateToDoListRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class UserRegistrationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,9 +25,10 @@ class UserRegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-                'name' => ['required', 'string', 'max:255', 'min:2'],
-                'email' => ['required','email','unique:users','max:255',],
-                'password' => 'required|confirmed|min:6',
+            'name'=>'required|unique:to_do_lists',
+            'file'=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'list_id'=> 'integer|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ];
     }
 }

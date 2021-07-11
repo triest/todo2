@@ -1,5 +1,6 @@
 require('./bootstrap');
 import Vue from 'vue'
+
 window.Vue = require('vue');
 import Vuex from 'vuex';
 
@@ -10,7 +11,6 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 
 
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18,11 +18,14 @@ import axios from 'axios';
  */
 
 
-
-
-
 Vue.use(VueAxios, axios);
 
 window.axios = require('axios');
 
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
