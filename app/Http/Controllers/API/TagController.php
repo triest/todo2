@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TagResource;
+use App\Http\Resources\ToDoListResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -11,13 +13,13 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         //
         $tags=Tag::all();
-
+        return response()->json(TagResource::collection($tags));
     }
 
     /**

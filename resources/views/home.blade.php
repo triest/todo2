@@ -45,7 +45,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" >Создать елемент списка</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" id="close-create-list-item-button" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -55,7 +55,7 @@
                     <input type="hidden" name="list_id" id="list_id"  required>
                     <input type="text" name="name" id="toDoItemName"  required>
                     <input type="file" name="file" id="file"  required>
-                    <span id="tags-span"></span>
+                    <span id="tags-span"></span> <p></p>
                     <button type="submit" class="btn btn-primary">Создать</button>
                 </form>
             </div>

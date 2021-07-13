@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Smoking;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
-class SmokingSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +15,11 @@ class SmokingSeeder extends Seeder
     public function run()
     {
         //
-        $arr=['Не курю','Иногда','Много курю'];
+        $arr=['работа','it','дом','кот','дача'];
         foreach ($arr as $item){
-            $relation=new Smoking();
-            $relation->name=$item;
-            $relation->save();
+            $tag=new Tag();
+            $tag->name=$item;
+            $tag->save();
         }
     }
 }

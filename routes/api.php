@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnketController;
+use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\Api\ToDoItemController;
 use App\Http\Controllers\Api\ToDoListController;
 use App\Http\Controllers\Auth\LoginController;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(
         function () {
             Route::apiResource('to-do-list-item', ToDoItemController::class);
             Route::apiResource('to-do-list', ToDoListController::class);
+            Route::apiResource('tag', TagController::class);
         }
 );
 

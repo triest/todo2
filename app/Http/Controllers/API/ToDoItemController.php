@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateToDoListRequest;
+use App\Models\Tag;
 use App\Models\ToDoItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,16 +30,11 @@ class ToDoItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
-
         $todolIstItem=new ToDoItem();
 
         $todolIstItem->fill($request->post());
 
         $todolIstItem->save();
-
-
 
         if($request->file('file')) {
             /*
@@ -49,6 +45,16 @@ class ToDoItemController extends Controller
             $name = time().'_'.$todolIstItem->id.'_'.rand(0,100).'_.'.$request->file->getClientOriginalExtension();
             $todolIstItem->image='/storage/'.$filePath;
             $todolIstItem->save();
+        }
+
+        if($request->has('tag')){
+            $tags=$request->tag;
+
+            foreach ($tags as $tag) {
+                $tag = Tag::select(['id'])->where('id',intval($tag))->first();
+                if(!$tag)continue;
+                $todolIstItem->tag()->save($tag);
+            }
         }
 
         return response()->json([$todolIstItem]);
