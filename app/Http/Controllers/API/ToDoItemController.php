@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateToDoListItemRequest;
 use App\Http\Requests\CreateToDoListRequest;
 use App\Models\ToDoItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ToDoItemController extends Controller
@@ -34,16 +32,16 @@ class ToDoItemController extends Controller
         //
 
 
-
         $todolIstItem=new ToDoItem();
 
         $todolIstItem->fill($request->post());
 
         $todolIstItem->save();
 
+        die("ds");
 
-        if($request->file()) {
 
+        if($request->file('file')) {
             /*
              * удаляем старый файл
              * */

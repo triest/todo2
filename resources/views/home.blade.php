@@ -23,7 +23,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="nemToListModelClouseButton">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -40,21 +40,22 @@
     </div>
 </div>
 
-<div class="modal fade" id="createToDoListItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createToDoListItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel" >Создать елемент списка</h5>
-                <button type="button" class="close" data-dismiss="modal" id="nemToDoItemModelClouseButton" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="createListItemForm" method="post" action="{{route('to-do-list-item.store')}}" enctype="multipart/form-data">
+                <form id="createListItemForm" method="post"   action="{{route('to-do-list-item.store')}}">
                     @csrf
                     <input type="hidden" name="list_id" id="list_id"  required>
                     <input type="text" name="name" id="toDoItemName"  required>
-                    <input type="file" name="file" id="file">
+                    <input type="file" name="name" id="file"  required>
+
                     <button type="submit" class="btn btn-primary">Создать</button>
                 </form>
             </div>

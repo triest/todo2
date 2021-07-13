@@ -29,13 +29,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('api')->group(function () {
 
 });
-Route::apiResource('to-do-list', ToDoListController::class);
-Route::apiResource('to-do-list-item', ToDoItemController::class);
+
 
 Route::middleware('auth')->group(
         function () {
-            Route::apiResource('to-do-list', ToDoListController::class);
             Route::apiResource('to-do-list-item', ToDoItemController::class);
+            Route::apiResource('to-do-list', ToDoListController::class);
         }
 );
 

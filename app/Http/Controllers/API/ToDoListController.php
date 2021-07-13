@@ -27,8 +27,7 @@ class ToDoListController extends Controller
         }
 
         $toDolists=$user->todoLists()->with('item')->get();
-
-        return response()->json($toDolists);
+        return response()->json(ToDoListResource::collection($toDolists));
     }
 
 

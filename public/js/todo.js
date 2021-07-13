@@ -2,25 +2,6 @@ $( document ).ready(function() {
    getToLoLists()
 });
 
-$( "#createListForm" ).submit(function( event ) {
-    event.preventDefault();
-    jQuery.ajax({
-        url: 'api/to-do-list',
-        type: 'POST',
-        dataType: "json",
-        data:{
-           name:document.getElementById('name').value
-        },
-        error: function (response) {
-
-        },
-        success: function (response) {
-            getToLoLists();
-            document.getElementById('nemToListModelClouseButton').click();
-        }
-
-    })
-});
 
 
 function getToLoLists(){
@@ -46,9 +27,7 @@ function getToLoLists(){
                 for (let j=0;j<items.length;j++){
                     itemHtml+="<br><b>"+items[j].name+"</b>"
                     itemHtml+="<br>"+items[j].description+""
-                    if(!items[j].image) {
-                        itemHtml += "<br><img width='40px' src='" + items[j].image + "'>"
-                    }
+                    itemHtml+="<br><img width='40px' src='"+items[j].image+"'>"
                 }
 
 
@@ -77,24 +56,48 @@ function setListItem(id){
     document.getElementById("list_id").value=id;
 }
 
-$( "form#createListItemForm" ).on("submit",function( event ) {
+$( "#createListForm" ).submit(function( event ) {
     event.preventDefault();
-    event.preventDefault();
-    var formData = new FormData(this);
-
-
     jQuery.ajax({
-        url: 'api/to-do-list-item',
+        url: 'api/to-do-list',
         type: 'POST',
-        data: formData,
-        processData: false,
+        dataType: "json",
+        data:{
+            name:document.getElementById('name').value
+        },
         error: function (response) {
 
         },
         success: function (response) {
-            getToLoLists();
-            document.getElementById('nemToDoItemModelClouseButton').click();
+            getToLoLists()
         }
 
     })
 });
+
+
+$( "#createListItemForm" ).submit(function( event ) {
+    event.preventDefault();
+    console.log("item")
+
+    var data = new FormData();
+    data.append('input_file_name', $('file').prop('files')[0]);
+
+    jQuery.ajax({
+        url: 'api/to-do-list-item',
+        type: 'POST',
+        dataType: "json",
+        data:{
+            name:document.getElementById('toDoItemName').value,
+            data
+        },
+        error: function (response) {
+
+        },
+        success: function (response) {
+            getToLoLists()
+        }
+
+    })
+});
+
