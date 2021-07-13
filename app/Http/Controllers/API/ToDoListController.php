@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateToDoListRequest;
 use App\Http\Resources\ToDoListResource;
+use App\Models\Tag;
 use App\Models\ToDoList;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +31,7 @@ class ToDoListController extends Controller
 
         $toDolists = ToDoList::select(['*']);
 
-        if ($tags) {
+        if (!empty($tags)) {
             foreach ($tags as $tag) {
                 $toDolists->whereHas(
                         'item.tag',
@@ -39,12 +41,58 @@ class ToDoListController extends Controller
                 );
             }
         }
-
         $toDolists->where('user_id',$user->id);
 
 
-        $toDolists = $toDolists->with('item')->with('item.tag')->get();
-        return response()->json(ToDoListResource::collection($toDolists));
+
+        $toDolists2= $toDolists->with('item')->get();
+
+
+        if (!empty($tags)) {
+            foreach ($tags as $tag) {
+                $tag = Tag::where('name', $tag)->first();
+
+                if (!$tag) {
+                    continue;
+                }
+
+                $array = array();
+
+                foreach ($toDolists2 as $toDolist) {
+
+                    $Items=$toDolist->item()->get();
+
+                    foreach ($Items as $item){
+
+                        $tagsItem=$item->tag()->get();
+                        $collection=collect();
+
+                        foreach ($tagsItem as $tagItem){
+
+                            if($tagItem->id==$tag->id){
+
+                                $collection->push($item);
+                            }
+                        }
+                    }
+
+                    $array[] = [
+                            'id' => $toDolist->id,
+                            'name' => $toDolist->name,
+                            'items'=>$collection
+                    ];
+
+                }
+            }
+
+            return  response()->json($array);
+        }
+
+
+
+
+
+        return response()->json(ToDoListResource::collection($toDolists2));
     }
 
 

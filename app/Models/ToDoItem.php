@@ -20,4 +20,13 @@ class ToDoItem extends Model
         //
         return $this->belongsToMany(Tag::class,'tag_to_do_item');
     }
+
+    public function tagFilter($id){
+        return $this->belongsToMany(Tag::class,'tag_to_do_item')->where('tag_to_do_item.tag_id','=',$id);
+    }
+
+    public function scopeWithAndWhereHas($query, $relation, $constraint){
+        return $query->whereHas($relation, $constraint)
+                ->with([$relation => $constraint]);
+    }
 }
