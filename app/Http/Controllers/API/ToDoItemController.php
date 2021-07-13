@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateToDoListItemRequest;
 use App\Http\Requests\CreateToDoListRequest;
 use App\Models\Tag;
 use App\Models\ToDoItem;
@@ -29,11 +30,11 @@ class ToDoItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateToDoListItemRequest $request)
     {
         $todolIstItem=new ToDoItem();
 
-        $todolIstItem->fill($request->post());
+        $todolIstItem->fill($request->validated());
 
         $todolIstItem->save();
 

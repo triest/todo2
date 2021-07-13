@@ -137,14 +137,16 @@ $("#createTegForm").submit(function (event) {
         contentType: false,
         data: new FormData(this),
         error: function (response) {
-
+            alert(response.data.message)
         },
         success: function (response) {
-            document.getElementById('close-create-list-item-button').click()
-            getToLoLists()
+
+
         }
 
     })
+    document.getElementById('close-create-list-item-button').click()
+    getTags();
 });
 
 
@@ -184,10 +186,10 @@ function deleteTag(id){
         type: 'DELETE',
         dataType: "json",
         error: function (response) {
-
+                alert(response.text)
         },
         success: function (response) {
-                 getToLoLists()
+            getTags()
         }
     })
 }
