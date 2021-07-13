@@ -26,8 +26,9 @@ class CreateToDoListItemRequest extends FormRequest
     {
         return [
                 'list_id'=>'required|exists:to_do_lists,id',
-                'name'=>'required',
-                'file'=>'image|mimes:jpeg,png,jpg,gif,svg'
+                'name'=>'required|min:5|max:255',
+                'description'=>'required|string|max:1000',
+                'file'=>'required|image|mimes:jpeg,png,jpg,gif,svg'
         ];
     }
 }

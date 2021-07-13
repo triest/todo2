@@ -11,7 +11,6 @@ function reset(){
 
 
 function getToLoLists(Tag=null) {
-    console.log(Tag)
 
     let url="api/to-do-list";
 
@@ -56,8 +55,12 @@ function getToLoLists(Tag=null) {
 
                 for (let j = 0; j < items.length; j++) {
                     itemHtml += "<br><b>" + items[j].name + "</b>"
-                    itemHtml += "<br>" + items[j].description + ""
-                    itemHtml += "<br><img width='40px' src='" + items[j].image + "'>"
+                    if(items[j].description) {
+                        itemHtml += "<br>" + items[j].description + ""
+                    }
+                    if(items[j].image) {
+                        itemHtml += "<br><img width='40px' src='" + items[j].image + "'>"
+                    }
                 }
 
 
@@ -146,7 +149,13 @@ $("#createListItemForm").submit(function (event) {
         contentType: false,
         data: new FormData(this),
         error: function (response) {
+            if(response.status===422){
+                console.log("validation fail")
+                let errors = response.responseText;
 
+                errors = JSON.parse(errors)
+                printErrorMsg(errors);
+            }
         },
         success: function (response) {
             document.getElementById('close-create-list-item-button').click()
@@ -225,4 +234,19 @@ function deleteTag(id){
             getTags()
         }
     })
+}
+
+function printErrorMsg(msg) {
+    let message = ""
+    var arr = jQuery.makeArray(msg);
+
+    if (arr[0] !== undefined && arr[0].errors !== undefined) {
+
+        $.each(arr[0].errors, function (key, value) {
+            message += value;
+            message += "\n"
+        });
+    }
+
+    alert(message)
 }

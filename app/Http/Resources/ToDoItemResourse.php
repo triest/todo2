@@ -14,6 +14,11 @@ class ToDoItemResourse extends JsonResource
      */
     public function toArray($request)
     {
-        return ['id' => $this->id, 'name' => $this->name, 'tags' => $this->tag, 'image' => $this->image_small];
+        return ['id' => $this->id,
+                'name' => $this->name,
+                'tags' => $this->tag,
+                'image' => $this->image_small,
+                'description'=>$this->description
+        ];
     }
 }

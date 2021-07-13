@@ -43,7 +43,7 @@ class ToDoListController extends Controller
         $toDolists->where('user_id',$user->id);
 
 
-        $toDolists = $toDolists->with('item')->get();
+        $toDolists = $toDolists->with('item')->with('item.tag')->get();
         return response()->json(ToDoListResource::collection($toDolists));
     }
 

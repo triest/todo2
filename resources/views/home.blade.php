@@ -59,7 +59,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" >Создать елемент списка</h5>
+                <h5 class="modal-title" id="exampleModalLabel" >Создать элемент списка</h5>
                 <button type="button" class="close" data-dismiss="modal" id="close-create-list-item-button" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -69,6 +69,8 @@
                     @csrf
                     <input type="hidden" name="list_id" id="list_id"  required>
                     <input type="text" name="name" id="toDoItemName"  required>
+                    <br>
+                    <textarea name="description" id="description"></textarea>
                     <input type="file" name="file" id="file"  required>
                     <span id="tags-span"></span> <p></p>
                     <button type="submit" class="btn btn-primary">Создать</button>
@@ -93,7 +95,7 @@
                     @csrf
                     <label for="name">Имя тега</label>
                     <input type="text" name="name">
-                    <input type="submit" value="Создать теп">
+                    <input type="submit" value="Создать тег">
                 </form>
 
                 <span id="tag-list"></span>

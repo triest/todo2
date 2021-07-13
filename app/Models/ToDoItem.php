@@ -9,7 +9,7 @@ class ToDoItem extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name','list_id'];
+    protected $fillable=['name','list_id','description'];
 
     public function user()
     {
