@@ -6,7 +6,6 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <button class="btn btn-primary"> </button>
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createToDoListModal">
@@ -17,12 +16,18 @@
                 Создать тег
             </button>
             <br>
+            Теги:
             @foreach($tags as $tag)
-                <span onclick="getToLoLists({{$tag->id}})">{{$tag->name}}</span>
+                <span onclick="getToLoLists('{{$tag->name}}')">{{$tag->name}}</span>
             @endforeach
-
+            <br>
+            <span id="tag-search"></span>
             <span id="toDoListList"></span>
             <!-- Modal -->
+            <br>
+
+
+
 
         </div>
     </div>

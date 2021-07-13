@@ -34,7 +34,7 @@ class ToDoListController extends Controller
                 $toDolists->whereHas(
                         'item.tag',
                         function ($query) use ($tag) {
-                            $query->where('tags.id', $tag);
+                            $query->where('tags.name', $tag);
                         }
                 );
             }

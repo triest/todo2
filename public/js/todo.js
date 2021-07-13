@@ -4,24 +4,38 @@ $(document).ready(function () {
 
 var tagArray=[];
 
+function reset(){
+    tagArray=[];
+    this.getToLoLists();
+}
+
 
 function getToLoLists(Tag=null) {
     console.log(Tag)
 
     let url="api/to-do-list";
 
+    let tagSearch=document.getElementById('tag-search');
+    let tagSearchHtml="";
     if(Tag){
-
         tagArray.push(Tag)
+        tagSearchHtml+="<b>Поиск по тегам</b>"
+
+    }else {
+        tagSearch.innerHTML="";
     }
-    console.log(tagArray)
 
     if(tagArray.length>0){
         url+="?";
         for(let i=0;i<tagArray.length;i++){
             url+=tagArray[i]+"&";
+
+            tagSearchHtml+=tagArray[i]+",";
         }
+        tagSearchHtml+="<br><button onclick='reset()'>Сбросить поиск по тегам</button>"
     }
+
+    tagSearch.innerHTML=tagSearchHtml;
 
     jQuery.ajax({
         url: url,
