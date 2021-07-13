@@ -2,10 +2,29 @@ $(document).ready(function () {
     getToLoLists()
 });
 
+var tagArray=[];
 
-function getToLoLists() {
+
+function getToLoLists(Tag=null) {
+    console.log(Tag)
+
+    let url="api/to-do-list";
+
+    if(Tag){
+
+        tagArray.push(Tag)
+    }
+    console.log(tagArray)
+
+    if(tagArray.length>0){
+        url+="?";
+        for(let i=0;i<tagArray.length;i++){
+            url+=tagArray[i]+"&";
+        }
+    }
+
     jQuery.ajax({
-        url: 'api/to-do-list',
+        url: url,
         type: 'GET',
         dataType: "json",
         error: function (response) {

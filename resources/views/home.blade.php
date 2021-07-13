@@ -16,6 +16,10 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTagModal" onclick="getTags()">
                 Создать тег
             </button>
+            <br>
+            @foreach($tags as $tag)
+                <span onclick="getToLoLists({{$tag->id}})">{{$tag->name}}</span>
+            @endforeach
 
             <span id="toDoListList"></span>
             <!-- Modal -->

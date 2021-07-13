@@ -16,17 +16,34 @@ class ToDoListController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-
         //
-        $user=Auth::user();
+        $user = Auth::user();
 
-        if(!$user){
+        if (!$user) {
             return response()->json()->setStatusCode(403);
         }
 
-        $toDolists=$user->todoLists()->with('item')->get();
+        $tags = array_keys($request->all());
+
+        $toDolists = ToDoList::select(['*']);
+
+        if ($tags) {
+            foreach ($tags as $tag) {
+                $toDolists->whereHas(
+                        'item.tag',
+                        function ($query) use ($tag) {
+                            $query->where('tags.id', $tag);
+                        }
+                );
+            }
+        }
+
+        $toDolists->where('user_id',$user->id);
+
+
+        $toDolists = $toDolists->with('item')->get();
         return response()->json(ToDoListResource::collection($toDolists));
     }
 
