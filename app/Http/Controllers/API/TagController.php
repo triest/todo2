@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateToDoListRequest;
-use App\Models\ToDoItem;
+use App\Models\Tag;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
-class ToDoItemController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,40 +16,19 @@ class ToDoItemController extends Controller
     public function index()
     {
         //
+        $tags=Tag::all();
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
-
-
-        $todolIstItem=new ToDoItem();
-
-        $todolIstItem->fill($request->post());
-
-        $todolIstItem->save();
-
-
-
-        if($request->file('file')) {
-            /*
-             * удаляем старый файл
-             * */
-            $fileName = time().'_'.$todolIstItem->id.'_.'.$request->file->getClientOriginalExtension();
-            $filePath = $request->file('file')->storeAs('toDoItems', $fileName, 'public');
-            $name = time().'_'.$todolIstItem->id.'_'.rand(0,100).'_.'.$request->file->getClientOriginalExtension();
-            $todolIstItem->image='/storage/'.$filePath;
-            $todolIstItem->save();
-        }
-
-        return response()->json([$todolIstItem]);
-
     }
 
     /**

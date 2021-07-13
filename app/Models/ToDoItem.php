@@ -16,5 +16,8 @@ class ToDoItem extends Model
         return $this->belongsTo(ToDoList::class);
     }
 
-
+    public function tag(){
+        //
+        return $this->belongsToMany(Tag::class);
+    }
 }

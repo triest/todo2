@@ -50,12 +50,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="createListItemForm" method="post"   action="{{route('to-do-list-item.store')}}">
+                <form id="createListItemForm" method="post" accept-charset="multipart/form-data"   action="{{route('to-do-list-item.store')}}">
                     @csrf
                     <input type="hidden" name="list_id" id="list_id"  required>
                     <input type="text" name="name" id="toDoItemName"  required>
-                    <input type="file" name="name" id="file"  required>
-
+                    <input type="file" name="file" id="file"  required>
+                    <span id="tags-span"></span>
                     <button type="submit" class="btn btn-primary">Создать</button>
                 </form>
             </div>

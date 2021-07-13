@@ -54,6 +54,10 @@ function getToLoLists(){
 
 function setListItem(id){
     document.getElementById("list_id").value=id;
+
+    /*
+    * получаем список доступных тегов
+    * */
 }
 
 $( "#createListForm" ).submit(function( event ) {
@@ -78,19 +82,24 @@ $( "#createListForm" ).submit(function( event ) {
 
 $( "#createListItemForm" ).submit(function( event ) {
     event.preventDefault();
-    console.log("item")
+  /*  console.log("item")
+    var fileInput = document.querySelector('#file');
+
+    console.log(fileInput)
 
     var data = new FormData();
-    data.append('input_file_name', $('file').prop('files')[0]);
+    data.append('name',document.getElementById())
 
+    data.append('input_file_name', fileInput.files[0]);
+*/
+    var datastring = $("#contactForm").serialize();
     jQuery.ajax({
         url: 'api/to-do-list-item',
         type: 'POST',
-        dataType: "json",
-        data:{
-            name:document.getElementById('toDoItemName').value,
-            data
-        },
+        dataType: 'form',
+        processData: false,
+        contentType: false,
+        data: new FormData(this),
         error: function (response) {
 
         },
