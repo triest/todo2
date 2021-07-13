@@ -7,6 +7,7 @@ use App\Http\Resources\TagResource;
 use App\Http\Resources\ToDoListResource;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TagController extends Controller
 {
@@ -18,19 +19,26 @@ class TagController extends Controller
     public function index()
     {
         //
-        $tags=Tag::all();
+        $user=Auth::user();
+
+        $tags=$user->tag()->get();
         return response()->json(TagResource::collection($tags));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         //
+        $user=Auth::user();
+        $tag=new Tag();
+        $tag->name=$request->name;
+        $tag->user_id=Auth::user()->getAuthIdentifier();
+        $tag->save();
+        return  response()->json($tag);
     }
 
     /**
@@ -65,5 +73,16 @@ class TagController extends Controller
     public function destroy($id)
     {
         //
+        $tag=Tag::find($id);
+
+        if(!$tag){
+            return response([],404);
+        }
+
+        if($tag->delete()){
+            return response([],200);
+        }else{
+            return response([],500);
+        }
     }
 }

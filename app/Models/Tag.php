@@ -13,4 +13,8 @@ class Tag extends Model
         //
         return $this->belongsToMany(ToDoItem::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

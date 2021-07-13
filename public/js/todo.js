@@ -123,3 +123,71 @@ $("#createListItemForm").submit(function (event) {
     })
 });
 
+//createTegForm
+
+$("#createTegForm").submit(function (event) {
+    event.preventDefault();
+
+    var datastring = $("#contactForm").serialize();
+    jQuery.ajax({
+        url: 'api/tag',
+        type: 'POST',
+        dataType: 'form',
+        processData: false,
+        contentType: false,
+        data: new FormData(this),
+        error: function (response) {
+
+        },
+        success: function (response) {
+            document.getElementById('close-create-list-item-button').click()
+            getToLoLists()
+        }
+
+    })
+});
+
+
+function getTags() {
+    jQuery.ajax({
+        url: 'api/tag',
+        type: 'GET',
+        dataType: "json",
+        error: function (response) {
+
+        },
+        success: function (response) {
+            let responseData = response;
+            let html = "";
+            console.log(responseData);
+
+            for (let i = 0; i < responseData.length; i++) {
+
+
+                    html += responseData[i].name
+                    html += "<button class='btn btn-danger' onclick='deleteTag(" + responseData[i].id + ")'>Удалить</button>"
+                    html += "<br>"
+
+
+                document.getElementById('tag-list').innerHTML = html;
+
+            }
+
+        }
+    })
+}
+
+function deleteTag(id){
+    let url='api/tag/'+id
+    jQuery.ajax({
+        url: url,
+        type: 'DELETE',
+        dataType: "json",
+        error: function (response) {
+
+        },
+        success: function (response) {
+                 getToLoLists()
+        }
+    })
+}
