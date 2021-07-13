@@ -13,13 +13,11 @@ function getToLoLists() {
         },
         success: function (response) {
             let responseData = response;
-            console.log(responseData)
-
             let html = "";
 
             for (let i = 0; i < responseData.length; i++) {
 
-                let items = responseData[i].item;
+                let items = responseData[i].items;
 
                 let itemHtml = "";
 
