@@ -23,16 +23,17 @@ class ShareController extends Controller
 
         $user=Auth::user();
 
-        $share=Share::where('who_user_id',$user->id)->with('targetUser','list','whoUser')->get();
+        $share=Share::where('who_user_id',$user->id)->with('targetUser','list','whoUser')->pluck('target_user_id');
 
         $users_to_share=User::where('id','<>',$user->id)->get();
+
 
         return response()->json(compact('share','users_to_share'));
     }
 
     public function shareList(Request $request){
             $toDoItem=ToDoList::where('id','=',$request->list_id)->first();
-
+            Share::where('to_do_list_id',$toDoItem->id)->delete();
 
             $targetUsers=$request->share;
             foreach ($targetUsers as $item) {

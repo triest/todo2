@@ -102,12 +102,16 @@ function shareLisItem(id){
         },
         success: function (response) {
             let users=response.users_to_share;
-            console.log(users);
+            let share=response.share;
             let html="";
              html+="Пользователи для кого можно расшарить список"
             for (let i=0;i<users.length;i++){
                 html+='<br>';
-                html+=' <input type="checkbox" id="tag-'+users[i].id+'" name="share[]" value="'+users[i].id+'">'+users[i].name;
+                if (share.includes(users[i].id)){
+                    html += ' <input type="checkbox" id="tag-' + users[i].id + '" name="share[]" value="' + users[i].id + '" checked>' + users[i].name;
+                }else {
+                    html += ' <input type="checkbox" id="tag-' + users[i].id + '" name="share[]" value="' + users[i].id + '">' + users[i].name;
+                }
             }
             html+='<input type="hidden" name="list_id" id="list_id" value="'+id+'">'
 
