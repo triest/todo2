@@ -72,6 +72,10 @@ function getToLoLists(Tag=null) {
 
                     + itemHtml +
 
+                    "<button type=\"button\" class=\"btn btn-primary\" onclick='shareLisItem("+ responseData[i].id+")' data-toggle=\"modal\" data-target=\"#shareListItemModal\">\n" +
+                    "                Поделиться списком" +
+                    "            </button>"
+
                     "  </div>\n" +
                     "</div>" +
                     "</div>" +
@@ -80,6 +84,35 @@ function getToLoLists(Tag=null) {
 
             document.getElementById('toDoListList').innerHTML = html;
 
+        }
+
+    })
+}
+
+function shareLisItem(id){
+    jQuery.ajax({
+        url: 'api/share/get_users_to_share',
+        type: 'GET',
+        dataType: "json",
+        data: {
+            list_item_id: id
+        },
+        error: function (response) {
+
+        },
+        success: function (response) {
+            let users=response.users_to_share;
+            console.log(users);
+            let html="";
+             html+="Пользователи для кого можно расшарить список"
+            for (let i=0;i<users.length;i++){
+                html+='<br>';
+                html+=' <input type="checkbox" id="tag-'+users[i].id+'" name="share[]" value="'+users[i].id+'">'+users[i].name;
+            }
+            html+='<input type="hidden" name="list_id" id="list_id" value="'+id+'">'
+
+
+            document.getElementById('share-span').innerHTML=html
         }
 
     })
@@ -191,6 +224,29 @@ $("#createTegForm").submit(function (event) {
     getTags();
 });
 
+$("#shareList").submit(function (event) {
+    event.preventDefault();
+
+    var datastring = $("#contactForm").serialize();
+    jQuery.ajax({
+        url: 'api/share/share_list',
+        type: 'POST',
+        dataType: 'form',
+        processData: false,
+        contentType: false,
+        data: new FormData(this),
+        error: function (response) {
+            alert(response.data.message)
+        },
+        success: function (response) {
+
+
+        }
+
+    })
+    document.getElementById('close-create-list-item-button').click()
+    getTags();
+});
 
 function getTags() {
     jQuery.ajax({

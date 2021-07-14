@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnketController;
+use App\Http\Controllers\API\ShareController;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\Api\ToDoItemController;
 use App\Http\Controllers\Api\ToDoListController;
@@ -37,6 +38,10 @@ Route::middleware('auth')->group(
             Route::apiResource('to-do-list-item', ToDoItemController::class);
             Route::apiResource('to-do-list', ToDoListController::class);
             Route::apiResource('tag', TagController::class);
+            Route::prefix('share')->group(function (){
+                Route::get('get_users_to_share',[ShareController::class,'getUsersToShare']);
+                Route::post('share_list',[ShareController::class,'shareList']);
+            });
         }
 );
 

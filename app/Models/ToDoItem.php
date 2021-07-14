@@ -18,7 +18,7 @@ class ToDoItem extends Model
 
     public function tag(){
         //
-        return $this->belongsToMany(Tag::class,'tag_to_do_item');
+        return $this->belongsToMany(Tag::class,'tag_to_do_item','tag_id','');
     }
 
     public function tagFilter($id){

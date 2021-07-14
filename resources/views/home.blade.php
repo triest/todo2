@@ -104,6 +104,27 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="shareListItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel" >Поделиться списком</h5>
+                <button type="button" class="close" data-dismiss="modal" id="close-create-list-item-button" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="shareList" method="post" accept-charset="multipart/form-data"   action="{{route('to-do-list-item.store')}}">
+                    @csrf
+                    <span id="share-span"></span>
+                    <input type="submit">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 
